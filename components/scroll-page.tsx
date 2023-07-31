@@ -1,49 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { usePathname, useRouter } from 'next/navigation';
-import { pages } from '@/components/pages-data'
-
+import { pages } from '@/components/pages-data';
 
 const Scrollpage = ({ children }: { children: React.ReactNode }) => {
-
     const [current, setCurrent] = useState(0);
     const [scrolling, setScrolling] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
 
-    const goToPage = (n: number) => {
-        
+    const goToPage = useCallback((n: number) => {
         router.push(pages[n].pathname);
         setCurrent(n);
-    };
+    }, [router]);
 
-    const handleWheel = (event: WheelEvent) => {
+    const handleWheel = useCallback((event: WheelEvent) => {
         if (scrolling) return;
         setScrolling(true);
 
-        if (event.deltaY > 0 && current < pages.length - 1) goToPage(current + 1); // scroll to down
-        else if (event.deltaY < 0 && current > 0) goToPage(current - 1); // scroll to up
+        if (event.deltaY > 0 && current < pages.length - 1) goToPage(current + 1); // scroll down
+        else if (event.deltaY < 0 && current > 0) goToPage(current - 1); // scroll up
 
         setTimeout(() => setScrolling(false), 1000);
-    };
+    }, [scrolling, current, goToPage]);
 
     useEffect(() => {
-        const initialCurrent = pages.findIndex((pages) => pages.pathname === pathname);
+        const initialCurrent = pages.findIndex((page) => page.pathname === pathname);
         setCurrent(initialCurrent);
 
-        const handleWheel = (event: WheelEvent) => {
-            if (scrolling) return;
-            setScrolling(true);
-    
-            if (event.deltaY > 0 && current < pages.length - 1) goToPage(current + 1); // scroll to down
-            else if (event.deltaY < 0 && current > 0) goToPage(current - 1); // scroll to up
-    
-            setTimeout(() => setScrolling(false), 1000);
-        };
-
-        document.addEventListener("wheel", handleWheel);
+        const handleDocumentWheel = (event: WheelEvent) => handleWheel(event); // Create a separate function to call handleWheel
+        document.addEventListener("wheel", handleDocumentWheel);
 
         return () => {
-            document.removeEventListener("wheel", handleWheel);
+            document.removeEventListener("wheel", handleDocumentWheel);
         };
     }, [handleWheel, pathname]);
 
