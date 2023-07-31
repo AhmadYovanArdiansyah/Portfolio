@@ -30,12 +30,22 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
         const initialCurrent = pages.findIndex((pages) => pages.pathname === pathname);
         setCurrent(initialCurrent);
 
+        const handleWheel = (event: WheelEvent) => {
+            if (scrolling) return;
+            setScrolling(true);
+    
+            if (event.deltaY > 0 && current < pages.length - 1) goToPage(current + 1); // scroll to down
+            else if (event.deltaY < 0 && current > 0) goToPage(current - 1); // scroll to up
+    
+            setTimeout(() => setScrolling(false), 1000);
+        };
+
         document.addEventListener("wheel", handleWheel);
 
         return () => {
             document.removeEventListener("wheel", handleWheel);
         };
-    });
+    }, [handleWheel, pathname]);
 
     return (
         <div className="h-full w-full">
