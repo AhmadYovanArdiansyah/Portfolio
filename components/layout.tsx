@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	    		<div className='h-28 w-full'>
 	    			<Navbar />
 	    		</div>
-          	  	<div className="flex-1 w-full flex flex-col md:flex-row items-center gap-20 px-4 md:px-36">
+          	  	<div className="flex-1 w-full flex flex-col md:flex-row items-center gap-20 px-4 md:px-28">
           	  	  	<div className='h-full w-24'>
 	    			  	<Menu />
 	    			</div>

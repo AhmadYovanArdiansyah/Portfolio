@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		<div>
 			<Layout>
 				<Scrollpage>
-					<AnimatePresence initial={false} mode='wait' >
+					<AnimatePresence initial={false} mode='wait'>
 						<Component key={router.pathname} {...pageProps} />
 					</AnimatePresence>
 				</Scrollpage>

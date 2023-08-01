@@ -26,9 +26,9 @@ export default function Navbar() {
     return (
 		<nav className='h-full w-full flex justify-end items-center px-20'>
 			<div className="flex flex-col items-end gap-1 z-50 cursor-pointer" onClick={toggleMenu}>
-				<div className="bg-gray-300 w-9 h-1 "></div>
-				<div className="bg-gray-300 w-6 h-1 "></div>
-				<div className="bg-gray-300 w-9 h-1 "></div>
+				<div className="bg-gray-400 w-9 h-1 "></div>
+				<div className="bg-gray-400 w-6 h-1 "></div>
+				<div className="bg-gray-400 w-9 h-1 "></div>
 			</div>
 			<motion.div className='h-screen w-screen bg-slate-700 absolute flex flex-col justify-center items-center gap-10 top-0 left-0 z-40'
 			initial='hidden'

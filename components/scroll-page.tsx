@@ -1,12 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { pages } from '@/components/pages-data';
 
 const Scrollpage = ({ children }: { children: React.ReactNode }) => {
+
     const [current, setCurrent] = useState(0);
     const [scrolling, setScrolling] = useState(false);
-    const pathname = usePathname();
     const router = useRouter();
+    const pathname = router.pathname
+    
 
     const goToPage = useCallback((n: number) => {
         router.push(pages[n].pathname);
@@ -23,7 +25,23 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
         setTimeout(() => setScrolling(false), 1000);
     }, [scrolling, current, goToPage]);
 
+
     useEffect(() => {
+        const handleRouteChange = () => {
+          setScrolling(true);
+          setTimeout(() => setScrolling(false), 1000);
+        };
+    
+        router.events.on('routeChangeComplete', handleRouteChange);
+    
+        return () => {
+          router.events.off('routeChangeComplete', handleRouteChange);
+        };
+      }, [router.events]);
+    
+
+    useEffect(() => {
+
         const initialCurrent = pages.findIndex((page) => page.pathname === pathname);
         setCurrent(initialCurrent);
 
