@@ -15,7 +15,7 @@ export default function Project() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       className="h-full w-full pb-20">
-      <div className="h-full grid grid-cols-2 gap-10">
+      <div className="h-full w-screen p-5 grid grid-cols-2 gap-10">
         {boxColors.map((box, index) => (
           <motion.div
             key={index}
