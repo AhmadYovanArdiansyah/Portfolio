@@ -13,7 +13,7 @@ export default function Project() {
       initial={{ opacity: 0}}
       animate={{ opacity: 1}}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.5 }}  
       className="h-full w-full pb-20">
       <div className="h-full w-screen p-5 grid grid-cols-2 gap-10">
         {boxColors.map((box, index) => (

@@ -7,10 +7,10 @@ export default function Home() {
 
 	return ( 
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: .5}} className="h-full w-full flex flex-col pb-5">
-			<div className=" flex-1 flex flex-col items-center md:items-start justify-center mt-32 gap-10">
+			<div className=" flex-1 flex flex-col items-center md:items-start justify-center mt-20 gap-20">
 				<div>
-					<motion.h1 className={"text-gray-400 text-center font-noticia-text text-4xl font-normal"}>AHMAD YOVAN</motion.h1>
-					<motion.h1 className="text-[#7E00BA] text-center font-noticia-text text-3xl font-normal">PORTFOLIO</motion.h1>
+					<motion.h1 className={"text-gray-400 text-center font-noticia-text text-5xl md:text-6xl font-normal"}>AHMAD YOVAN</motion.h1>
+					<motion.h1 className="text-[#7E00BA] text-center md:text-start font-noticia-text text-4xl md:text-5xl font-normal">PORTFOLIO</motion.h1>
 				</div>
 				<button className="border-[2px] border-[#7E00BA] flex justify-center items-center p-2">
         		  	<motion.a className="text-gray-400 font-noticia-text font-normal cursor-pointer" onClick={() => router.push('/project')}>
