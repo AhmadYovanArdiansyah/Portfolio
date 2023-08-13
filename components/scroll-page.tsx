@@ -40,17 +40,21 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
     const { clientY } = event.touches[0];
     setTouchStart(clientY);
     setTouchEnd(clientY);
-    if (window.scrollY === 0) {
-      // Prevent the touchmove event during the touchstart
-      event.preventDefault();
-    }
+    const target = event.touches[0].target as HTMLElement;
+
+    console.log(target);
+    
+  // Cek apakah elemen yang ditekan adalah tombol yang diizinkan
+  if (!target.classList.contains('menu-button')) {
+    event.preventDefault(); // Mencegah tindakan default jika bukan tombol yang diizinkan
+  }
   }, []);
 
   const handleTouchMove = useCallback((event: TouchEvent) => {
     setTouchEnd(event.touches[0].clientY);
   }, []);
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((event: TouchEvent) => {
     if (scrolling) return;
     const touchDiff = touchEnd - touchStart;
     const direction = touchDiff < -50 ? 1 : touchDiff > 50 ? -1 : 0;

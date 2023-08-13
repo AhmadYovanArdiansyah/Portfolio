@@ -30,7 +30,7 @@ export default function Navbar() {
 				<div className="bg-gray-400 w-6 h-1 "></div>
 				<div className="bg-gray-400 w-9 h-1 "></div>
 			</div>
-			<motion.div className='h-screen w-screen bg-black absolute flex flex-col justify-center items-center gap-10 top-0 left-0 z-40'
+			<motion.div className='h-screen w-screen bg-black text-gray-400 absolute flex flex-col justify-center items-center gap-10 top-0 left-0 z-40'
 			initial='hidden'
 			animate={menuAktif ? 'visible' : 'hidden'}
 			variants={menuVariants}>
