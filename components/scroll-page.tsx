@@ -57,6 +57,32 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
   }, [scrolling, currentPageIndex, touchEnd, touchStart, goToPage]);
 
   useEffect(() => {
+    // Set history.scrollRestoration to "manual"
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Restore scroll position on route change
+    const handleRouteChange = () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 0);
+    };
+
+    // Add event listener for route changes
+    // Next.js provides the router object
+    // You might need to adjust this if Next.js has introduced changes
+    // to the router in version 13
+    const { router } = require('next/router');
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    // Remove event listener when component unmounts
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, []);
+
+  useEffect(() => {
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
