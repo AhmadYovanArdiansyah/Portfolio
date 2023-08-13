@@ -11,7 +11,7 @@ const font = Noticia_Text({
 const Layout = ({ children }: { children: React.ReactNode }) => {	
 
     return (
-        <main className={'h-full w-full flex flex-col items-center' + font.className}>
+        <main className={'h-screen w-full flex flex-col items-center' + font.className}>
           	<div className='h-full max-w-[1366px] w-full flex flex-col justify-start relative overflow-hidden'>
 	    		<div className='h-28 w-full'>
 	    			<Navbar />
