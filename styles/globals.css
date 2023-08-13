@@ -29,7 +29,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 
-width: calc(100% - 40px); 
 height: calc(100% - 40px);
 
+}
+
+main {
+  height: calc(100% - 40px);
 }
