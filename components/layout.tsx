@@ -24,7 +24,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	    				{children}
           	  	  	</div>
           	  	</div>
-				<Background />
+				<div>
+					<Background />
+				</div>
           	</div>
         </main>
     );

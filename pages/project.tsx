@@ -11,7 +11,7 @@ export default function Project() {
 	return (
 		<div
 		className="h-full w-full pb-20">
-		<div className="h-full w-screen md:w-full p-5 grid grid-cols-2 gap-10">
+		<div className="h-full w-screen md:w-full p-5 grid grid-cols-2 gap-5 md:gap-10">
 			{boxColors.map((box, index) => (
 			<motion.div
 				key={index}
