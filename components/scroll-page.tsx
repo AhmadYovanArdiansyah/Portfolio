@@ -40,6 +40,10 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
     const { clientY } = event.touches[0];
     setTouchStart(clientY);
     setTouchEnd(clientY);
+    if (window.scrollY === 0) {
+      // Prevent the touchmove event during the touchstart
+      event.preventDefault();
+    }
   }, []);
 
   const handleTouchMove = useCallback((event: TouchEvent) => {
@@ -57,32 +61,6 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
   }, [scrolling, currentPageIndex, touchEnd, touchStart, goToPage]);
 
   useEffect(() => {
-    // Set history.scrollRestoration to "manual"
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-
-    // Restore scroll position on route change
-    const handleRouteChange = () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 0);
-    };
-
-    // Add event listener for route changes
-    // Next.js provides the router object
-    // You might need to adjust this if Next.js has introduced changes
-    // to the router in version 13
-    const { router } = require('next/router');
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    // Remove event listener when component unmounts
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, []);
-
-  useEffect(() => {
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
@@ -91,7 +69,7 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     document.addEventListener("wheel", handleWheel);
-    document.addEventListener("touchstart", handleTouchStart);
+    document.addEventListener("touchstart", handleTouchStart, { passive: false });
     document.addEventListener("touchmove", handleTouchMove);
     document.addEventListener("touchend", handleTouchEnd);
 
