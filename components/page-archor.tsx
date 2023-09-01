@@ -10,7 +10,7 @@ const Menu = () => {
     const activeStyle = 'active w-24';
 
     return (
-        <div className="h-full flex flex-col gap-10 mt-8 md:mt-48">
+        <div className="h-full flex flex-col items-end gap-9 mt-8 md:mt-48">
             {pages.map(({ pathname: pages }) => {
                 const isActive = path === pages ? activeStyle : '';
                 return <motion.div key={pages} whileHover={{scaleY: 1.5}} transition={{duration : 0}} className={`${commonStyles} ${isActive}`} onClick={() => router.push(pages)}></motion.div>

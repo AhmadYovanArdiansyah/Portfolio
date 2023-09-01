@@ -11,21 +11,24 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
 
   const currentPageIndex = pages.findIndex((page) => page.pathname === router.pathname);
 
+  // Fungsi untuk pindah ke halaman berikutnya atau sebelumnya
   const goToPage = useCallback(
     (pageIndex: number) => {
       if (isNavigating || pageIndex < 0 || pageIndex >= pages.length) return;
       setIsNavigating(true);
       router.push(pages[pageIndex].pathname);
-      setTimeout(() => setIsNavigating(false), 500);
+      setTimeout(() => setIsNavigating(false), 0);
     },
     [router, isNavigating]
   );
 
+  // Callback untuk menangani perubahan rute
   const handleRouteChange = useCallback(() => {
     setScrolling(true);
     setTimeout(() => setScrolling(false), 1000);
   }, []);
 
+  // Callback untuk menangani scroll dengan mouse
   const handleWheel = useCallback(
     (event: WheelEvent) => {
       if (scrolling) return;
@@ -36,24 +39,19 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
     [scrolling, currentPageIndex, goToPage]
   );
 
+  // Callback untuk menyimpan posisi awal sentuhan
   const handleTouchStart = useCallback((event: TouchEvent) => {
     const { clientY } = event.touches[0];
     setTouchStart(clientY);
     setTouchEnd(clientY);
-    const target = event.touches[0].target as HTMLElement;
-
-    console.log(target);
-    
-  // Cek apakah elemen yang ditekan adalah tombol yang diizinkan
-  if (!target.classList.contains('menu-button')) {
-    event.preventDefault(); // Mencegah tindakan default jika bukan tombol yang diizinkan
-  }
   }, []);
 
+  // Callback untuk memperbarui posisi akhir sentuhan
   const handleTouchMove = useCallback((event: TouchEvent) => {
     setTouchEnd(event.touches[0].clientY);
   }, []);
 
+  // Callback untuk menangani akhir sentuhan
   const handleTouchEnd = useCallback((event: TouchEvent) => {
     if (scrolling) return;
     const touchDiff = touchEnd - touchStart;
@@ -64,6 +62,7 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
     setTouchEnd(0);
   }, [scrolling, currentPageIndex, touchEnd, touchStart, goToPage]);
 
+  // Mengikuti perubahan rute
   useEffect(() => {
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
@@ -71,6 +70,7 @@ const Scrollpage = ({ children }: { children: React.ReactNode }) => {
     };
   }, [router.events, handleRouteChange]);
 
+  // Mengganti event listener untuk mouse dan sentuhan
   useEffect(() => {
     document.addEventListener("wheel", handleWheel);
     document.addEventListener("touchstart", handleTouchStart, { passive: false });
