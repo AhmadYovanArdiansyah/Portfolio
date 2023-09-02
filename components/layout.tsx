@@ -2,17 +2,28 @@ import Menu from "@/components/page-archor";
 import Navbar from "@/components/navbar";
 import Background from "@/components/hero-background";
 import { Noticia_Text } from 'next/font/google'
+import { useEffect } from "react";
 
 const font = Noticia_Text({
 	subsets: ['latin-ext'],
 	weight: ['400', '700']
 })
 
-const Layout = ({ children }: { children: React.ReactNode }) => {	
+const Layout = ({ children }: { children: React.ReactNode }) => {
+	
+	useEffect(() => {
+		const documentHeight = () => {
+			const doc = document.documentElement
+			doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+		   }
+		   window.addEventListener('resize', documentHeight)
+		   documentHeight()
+		   
+	})
 
     return (
-        <main className={'h-screen w-screen flex flex-col items-center' + font.className}>
-          	<div className='h-full max-w-[1366px] w-full flex flex-col justify-start relative overflow-hidden'>
+        <main className='layout w-full overflow-hidden relative'>
+          	<div className='h-full max-w-[1366px] w-full flex flex-col justify-start relative'>
 	    		<div className='h-28 w-full'>
 	    			<Navbar />
 	    		</div>

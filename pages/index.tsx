@@ -6,7 +6,7 @@ export default function Home() {
 	const router = useRouter()
 
 	return ( 
-		<div className="h-full w-full flex flex-col justify-center pl-28 pb-5">
+		<div className="h-full w-full flex flex-col justify-center md:pl-28 pb-5">
 			<div className="flex flex-col items-center md:items-start md:pt-36 justify-center gap-16">
 				<div>
 					<motion.h1 className={"text-gray-400 text-center font-noticia-text text-5xl md:text-5xl font-normal"}>AHMAD YOVAN</motion.h1>
